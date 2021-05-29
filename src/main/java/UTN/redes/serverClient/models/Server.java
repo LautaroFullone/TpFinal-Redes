@@ -58,8 +58,7 @@ public class Server extends Connect {
                     salidaCliente.writeUTF(respuestas.get(mensajeServidor)+"\n");
                     salidaCliente.flush();
                     }
-            }
-            while(!mensajeServidor.equals("x"));
+            }while(!mensajeServidor.equals("x"));
 
             System.out.println("Conexion finalizada");
 

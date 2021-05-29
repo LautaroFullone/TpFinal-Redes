@@ -21,7 +21,7 @@ public class Connect {
             ss = new ServerSocket(PUERTO);
             cs = new Socket();
         }
-        else
+        if(tipo.equalsIgnoreCase("cliente"))
             cs = new Socket(HOST, PUERTO);
 
     }
