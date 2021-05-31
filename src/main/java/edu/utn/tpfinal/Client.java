@@ -35,7 +35,7 @@ public class Client extends Thread{
                 System.out.println("PORT: ");
                 port = Integer.parseInt(new DataInputStream(System.in).readLine());
                 try{
-                    client = new Socket("192.168.0.62",port);
+                    client = new Socket(ip,port);
                     flag++;//si se logra conectar salgo del while, sino atrapo la exception, con lo cual flag seguira siendo 0
                 }catch (IOException i){
                     System.out.println("Error: Something happened , please try again.");
