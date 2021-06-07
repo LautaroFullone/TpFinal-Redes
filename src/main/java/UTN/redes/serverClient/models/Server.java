@@ -1,9 +1,6 @@
 package UTN.redes.serverClient.models;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 import java.net.Socket;
 import java.text.DateFormat;
@@ -31,6 +28,8 @@ public class Server extends Connect {
 
         }
 
+
+
     public void startServer()
     {
         try
@@ -45,19 +44,22 @@ public class Server extends Connect {
 
             salidaCliente.writeUTF("Envie un mensaje...");
 
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(cs.getInputStream()));
+            DataInputStream in = new DataInputStream(cs.getInputStream());
 
             do//Mientras haya mensajes desde el cliente
             {
-                mensajeServidor = entrada.readLine();
-                //Se muestra por pantalla el mensaje recibido
-                System.out.println(mensajeServidor);
+                mensajeServidor = in.readUTF();
 
-                if(respuestas.containsKey(mensajeServidor.toLowerCase(Locale.ROOT))){
-                    //salidaCliente.writeUTF(responder(mensajeServidor)+"\n");
+                //Se muestra por pantalla el mensaje recibido
+                System.out.println("Cliente [" + cs.getLocalAddress() + " " + cs.getPort() + "]: "+ mensajeServidor);
+
+                if(respuestas.containsKey(mensajeServidor.toLowerCase(Locale.ROOT)))
                     salidaCliente.writeUTF(respuestas.get(mensajeServidor)+"\n");
-                    salidaCliente.flush();
-                    }
+                else{
+                    salidaCliente.writeUTF("nada que decir");
+
+                }
+
             }while(!mensajeServidor.equals("x"));
 
             System.out.println("Conexion finalizada");
